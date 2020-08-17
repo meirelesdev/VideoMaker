@@ -1,0 +1,20 @@
+{
+  "name": "VideoMaker",
+  "version": "1.0.0",
+  "description": "Este projeto foi feito acompanhando o canal do Filipe Deschamps",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/meirelesdev/VideoMaker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/meirelesdev/VideoMaker/issues"
+  },
+  "homepage": "https://github.com/meirelesdev/VideoMaker#readme"
+}
