@@ -1,10 +1,16 @@
 const readline = require('readline-sync')
 
-const start = ()=> {
+const robots = {
+    text: require('./robots/text')
+}
+
+const start = async ()=> {
     const content = {}
 
     content.searchTerm = askSearchTerm()
     content.prefix = askPrefix()
+
+    await robots.text(content)
 
     function askSearchTerm() {
         return readline.question('Digite um termo para o seu video: ')
