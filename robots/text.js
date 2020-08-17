@@ -7,20 +7,6 @@ const robot = async content => {
         clearContent(content)
         breakContentSentences(content)
 
-    function breakContentSentences(content) {
-        content.sentences = []
-        
-        const sentences = sentenceBoundaryDetection.sentences(content.clearedContent)
-        
-        sentences.forEach(sentence => {
-            content.sentences.push({
-                text: sentence,
-                keywords: [],
-                images: []
-            })
-        })
-        // console.log(sentences)
-    }
     async function searchConentWiki(content) {
         const algorithmiaAuth = algorithmia(algorithmiaApiKey )
         const wikiAlgorithm = algorithmiaAuth.algo('web/WikipediaParser/0.1.2')
@@ -34,8 +20,8 @@ const robot = async content => {
     function clearContent(content) {
         const withOutBlankLinesAndMarkdown = removeBlankLinesAndMarkdown(content.originalContent)
         const withOutDatesInParecentheses = removeDatesInParentheses(withOutBlankLinesAndMarkdown)
+        
         content.clearedContent = withOutDatesInParecentheses
-        // console.log("Texto limpo ", withOutDatesInParecentheses)
 
         function removeBlankLinesAndMarkdown(text) {
             const allLines = text.split('\n')
@@ -51,10 +37,18 @@ const robot = async content => {
         function removeDatesInParentheses(text) {
             return text.replace(/\((?:\([^()]*\)|[^()])*\)/gm, '').replace(/  /g, ' ')
         }
-        function breakContentSentences(content) {
-            const sentences = sentenceBoundaryDetection.sentences(content.clearContent)
-            console.log(sentences)
-        }
+    }
+    
+    function breakContentSentences(content) {
+        content.sentences = []            
+        const sentences = sentenceBoundaryDetection.sentences(content.clearedContent)            
+        sentences.forEach(sentence => {
+            content.sentences.push({
+                text: sentence,
+                keywords: [],
+                images: []
+            })
+        })
     }
 }
 
