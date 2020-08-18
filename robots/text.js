@@ -12,15 +12,19 @@ const nlu = new NatualLanguageUnderstandingV1({
     }),
     url: watson.url,
 })
+const state = require('./state')
 
-const robot = async content => {
+const robot = async () => {
+    // carrega o arquivo content.json
+    const content = state.load()
 
     await searchConentWiki(content)
           clearContent(content)
           breakContentSentences(content)
           limitMaxSentences(content)
     await fetchKeywordsOfAllSentences(content)
-
+    // Salva novamente no arquivo content.json
+    state.save(content)
     async function searchConentWiki(content) {
         const algorithmiaAuth = algorithmia(algorithmiaApiKey )
         const wikiAlgorithm = algorithmiaAuth.algo('web/WikipediaParser/0.1.2')
@@ -29,7 +33,7 @@ const robot = async content => {
             articleName: content.searchTerm,
             lang: "pt"
         })
-        
+
         if(!wikiResponse.result){
             console.log("Busca sem resultado...")
             process.exit()
